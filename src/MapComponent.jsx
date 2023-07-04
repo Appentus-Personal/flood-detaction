@@ -4,28 +4,45 @@ import ornage from "./assets/pin-ornage.png";
 import red from "./assets/pin-red.png";
 import { useEffect, useState } from "react";
 import "./App.css";
+import { useLottie } from "lottie-react";
+import * as animationData from "./ripple.json";
+import anim from "./ripple.gif";
 
 const MapComponent = ({ locations }) => {
   const [markers, setMarkets] = useState(0);
 
+  const options = {
+    animationData: animationData,
+    loop: true,
+  };
+
+  const { View } = useLottie(options);
+
   const AnyReactComponent = ({ text }) => {
     const color = getMarkerTextColor(text);
-   return ( <div
-      style={{
-        color: "white",
-        width:"25px",
-        background: color,
-        padding: "15px 10px",
-        display: "inline-flex",
-        textAlign: "center",
-        alignItems: "center",
-        justifyContent: "center",
-        borderRadius: "100%",
-        transform: "translate(-50%, -50%)",
-      }}
-    >
-      {"WL " + text}
-    </div>)
+
+    return (
+      <>
+        {View}
+        <div
+          style={{
+            color: "white",
+            width: "25px",
+            background: color,
+            padding: "15px 10px",
+            display: "inline-flex",
+            textAlign: "center",
+            alignItems: "center",
+            justifyContent: "center",
+            borderRadius: "100%",
+            transform: "translate(-50%, -50%)",
+          }}
+        >
+          {"WL " + text}
+        </div>
+        {View}
+      </>
+    );
   };
 
   const Marker = ({ text }) => {
