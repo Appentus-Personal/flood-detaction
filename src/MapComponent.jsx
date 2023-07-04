@@ -3,19 +3,40 @@ import green from "./assets/pin-green.png";
 import ornage from "./assets/pin-ornage.png";
 import red from "./assets/pin-red.png";
 import { useEffect, useState } from "react";
+import "./App.css";
 
 const MapComponent = ({ locations }) => {
   const [markers, setMarkets] = useState(0);
 
+  const AnyReactComponent = ({ text }) => {
+    const color = getMarkerTextColor(text);
+   return ( <div
+      style={{
+        color: "white",
+        width:"25px",
+        background: color,
+        padding: "15px 10px",
+        display: "inline-flex",
+        textAlign: "center",
+        alignItems: "center",
+        justifyContent: "center",
+        borderRadius: "100%",
+        transform: "translate(-50%, -50%)",
+      }}
+    >
+      {"WL " + text}
+    </div>)
+  };
+
   const Marker = ({ text }) => {
     const color = getMarkerTextColor(text);
     return (
-      <div className="marker" style={{ width: "25px" }}>
-        <img src={getMarkerIcon(Number(text))} alt="Marker" width={20} />
+      <div className="marker" style={{ width: "50px" }}>
+        <img src={getMarkerIcon(Number(text))} alt="Marker" width={40} />
         <div
           style={{
             display: "flex",
-            fontSize: "8px",
+            fontSize: "12px",
             color: color,
             fontWeight: "600",
             textAlign: "center",
@@ -29,8 +50,17 @@ const MapComponent = ({ locations }) => {
 
   const renderMarkers = () => {
     return locations.map((marker, index) => {
+      // return (
+      //   <Marker
+      //     key={index}
+      //     lat={Number(marker.location[0])}
+      //     lng={Number(marker.location[1])}
+      //     text={marker.water_level}
+      //     animation={2}
+      //   />
+      // );
       return (
-        <Marker
+        <AnyReactComponent
           key={index}
           lat={Number(marker.location[0])}
           lng={Number(marker.location[1])}
@@ -74,8 +104,9 @@ const MapComponent = ({ locations }) => {
           mapTypeControl: false,
         }}
         bootstrapURLKeys={{ key: "AIzaSyDfafon1lZ3Lh-iN07d8wIeN87fODKRGyg" }}
-        defaultZoom={12}
-        defaultCenter={[26.91673695818268, 75.7882869206132]}
+        defaultZoom={9}
+        yesIWantToUseGoogleMapApiInternals
+        defaultCenter={[33.696534985886636, 74.53796411881365]}
         onDragEnd={() => {
           setMarkets(renderMarkers());
         }}
